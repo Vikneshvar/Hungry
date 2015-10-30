@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">gggggggg</string>
+    //I am Hungry
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_my_invites">MyInvitesActivity</string>
+    <string name="title_activity_iam_hungry">IAmHungryActivity</string>
+    <string name="title_activity_my_friends">MyFriendsActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+</resources>

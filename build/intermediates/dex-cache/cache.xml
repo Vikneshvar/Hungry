@@ -8,6 +8,12 @@
             dex="/Users/mobility/Desktop/IAmHungry/app/build/intermediates/pre-dexed/debug/bolts-android-1.2.1-dbc27d0f1c1bacd1ea37bef2791b05a17eb5e93b.jar" />
     </item>
     <item
+        jar="/Users/mobility/Desktop/IAmHungry/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false" revision="20.0.0" sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex
+            dex="/Users/mobility/Desktop/IAmHungry/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-56148e7770f969e64bf6c031da1d14c526861121.jar" />
+    </item>
+    <item
         jar="/Users/mobility/Desktop/IAmHungry/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
         jumboMode="false" revision="20.0.0" sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
         <dex
@@ -24,12 +30,6 @@
         jumboMode="false" revision="20.0.0" sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
         <dex
             dex="/Users/mobility/Desktop/IAmHungry/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-3495f92471fd77ab45d0cf3c26cd045c02cf5499.jar" />
-    </item>
-    <item
-        jar="/Users/mobility/Desktop/IAmHungry/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
-        jumboMode="false" revision="20.0.0" sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex
-            dex="/Users/mobility/Desktop/IAmHungry/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-56148e7770f969e64bf6c031da1d14c526861121.jar" />
     </item>
     <item
         jar="/Users/mobility/Desktop/IAmHungry/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"

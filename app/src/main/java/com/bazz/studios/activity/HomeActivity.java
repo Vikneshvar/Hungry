@@ -1,17 +1,19 @@
 package com.bazz.studios.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.bazz.studios.R;
+import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends Activity implements View.OnClickListener {
 
     Button btn_MyInvites;
     Button btn_IAmHungry;
@@ -23,9 +25,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         init();
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
+        ParseObject gameScore = new ParseObject("GameScore");
+        gameScore.put("score", 1337);
+        gameScore.put("playerName", "Sean Plott");
+        gameScore.put("cheatMode", false);
+        gameScore.saveInBackground();
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
 
     private void init() {

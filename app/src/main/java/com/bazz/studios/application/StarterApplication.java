@@ -1,4 +1,4 @@
-package application;
+package com.bazz.studios.application;
 
 import android.app.Application;
 
@@ -18,13 +18,13 @@ public class StarterApplication extends Application {
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
 
+        // Add your initialization code here
         Parse.initialize(this, "VtUZXSwV40GHZJbxpHcFXmz2FqfPc2puHfHlaN1e", "fslRUBt4dURpJL6aTw6JHmr2jOLAKFNutjOwbYZY");
-
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
         // Optionally enable public read access.
-        // defaultACL.setPublicReadAccess(true);
+        defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
     }
 }

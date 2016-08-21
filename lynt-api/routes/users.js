@@ -1,21 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var jwt = require('jsonwebtoken');
 
+var config = require('../config/main');
 var User = require('../models/user');
 
-// Register
-router.get('/register', function(req, res){
-  res.render('register');
-});
+// Bring in defined Passport Strategy
+require('../config/passport')(passport);
 
-// Login
-router.get('/login', function(req, res){
-  res.render('login');
-});
-
-// Register User
 router.post('/register', function(req, res){
   var name = req.body.name;
   var email = req.body.email;
@@ -34,9 +27,7 @@ router.post('/register', function(req, res){
   var errors = req.validationErrors();
 
   if(errors){
-    res.render('register',{
-      errors:errors
-    });
+    res.status(400).json({status:errors});
   } else {
     var newUser = new User({
       name: name,
@@ -46,57 +37,42 @@ router.post('/register', function(req, res){
     });
 
     User.createUser(newUser, function(err, user){
-      if(err) throw err;
+      if(err) {
+        res.status(500);
+        return;
+      } 
       console.log(user);
+      res.status(201);
     });
 
-    req.flash('success_msg', 'You are registered and can now login');
-
-    res.redirect('/users/login');
   }
 });
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-   User.getUserByUsername(username, function(err, user){
-    if(err) throw err;
-    if(!user){
-      return done(null, false, {message: 'Unknown User'});
+// Authenticate the user and get a JSON Web Token to include in the header of future requests.
+router.post('/authenticate', function(req, res) {
+  User.findOne({
+    email: req.body.email
+  }, function(err, user) {
+    if (err) throw err;
+
+    if (!user) {
+      res.status(401).json({ success: false, message: 'Authentication failed. User not found.' });
+    } else {
+      // Check if password matches
+      User.comparePassword(req.body.password, user.password, function(err, isMatch) {
+        if (isMatch && !err) {
+          // Create token if the password matched and no error was thrown
+          const token = jwt.sign(user, config.secret, {
+            issuer: user.id,
+            expiresIn: 10080 // in seconds
+          });
+          res.status(200).json({ success: true, token: 'JWT ' + token });
+        } else {
+          res.status(401).json({ success: false, message: 'Authentication failed. Passwords did not match.' });
+        }
+      });
     }
-
-    User.comparePassword(password, user.password, function(err, isMatch){
-      if(err) throw err;
-      if(isMatch){
-        return done(null, user);
-      } else {
-        return done(null, false, {message: 'Invalid password'});
-      }
-    });
-   });
-  }));
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.getUserById(id, function(err, user) {
-    done(err, user);
   });
-});
-
-router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
-  function(req, res) {
-    res.redirect('/');
-  });
-
-router.get('/logout', function(req, res){
-  req.logout();
-
-  req.flash('success_msg', 'You are logged out');
-
-  res.redirect('/users/login');
 });
 
 module.exports = router;

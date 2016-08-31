@@ -36,7 +36,7 @@ router.post('/register', function(req, res){
       email: email,
       username: username,
       password: password,
-      device: {device}
+      device: device
     });
 
     User.createUser(newUser, function(err, user){

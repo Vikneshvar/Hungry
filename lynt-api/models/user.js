@@ -15,8 +15,7 @@ var UserSchema = mongoose.Schema({
   },
   name: {
     type: String
-  },
-  devices: [String]
+  }
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

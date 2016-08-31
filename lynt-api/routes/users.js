@@ -23,6 +23,7 @@ router.post('/register', function(req, res){
   req.checkBody('username', 'Username is required').notEmpty();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+  req.checkBody('device', 'Device is required').notEmpty();
 
   var errors = req.validationErrors();
 
@@ -31,16 +32,17 @@ router.post('/register', function(req, res){
   } else {
     var newUser = new User({
       name: name,
-      email:email,
+      email: email,
       username: username,
       password: password
+      device: device
     });
 
     User.createUser(newUser, function(err, user){
       if(err) {
         res.status(500);
         return;
-      } 
+      }
       console.log(user);
       res.status(201);
     });

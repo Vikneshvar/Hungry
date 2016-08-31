@@ -27,22 +27,20 @@ router.post('/register', function(req, res){
   var errors = req.validationErrors();
 
   if(errors){
-    res.status(400).json({status:errors});
+    res.render('register',{
+      errors:errors
+    });
   } else {
     var newUser = new User({
       name: name,
-      email: email,
+      email:email,
       username: username,
       password: password
     });
 
     User.createUser(newUser, function(err, user){
-      if(err) {
-        res.status(500);
-        return;
-      }
+      if(err) throw err;
       console.log(user);
-      res.status(201);
     });
 
   }

@@ -29,7 +29,7 @@ router.post('/register', function(req, res){
   var errors = req.validationErrors();
 
   if(errors){
-    res.status(400).json({status:errors});
+    res.status(409).json({status:errors});
   } else {
     var newUser = new User({
       name: name,
@@ -41,7 +41,7 @@ router.post('/register', function(req, res){
 
     User.createUser(newUser, function(err, user){
       if(err) throw err;
-      console.log(user);
+      res.status(200).json({ success: true});
     });
 
   }

@@ -29,7 +29,7 @@ router.post('/register', function(req, res){
   var errors = req.validationErrors();
 
   if(errors){
-    res.status(409).json({status:errors});
+    res.status(409).json({errors});
   } else {
     var newUser = new User({
       name: name,

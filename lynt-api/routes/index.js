@@ -68,8 +68,7 @@ router.post('/register', function(req, res){
 
     req.flash('success_msg', 'You are registered and can now login');
 
-    //res.redirect('/login');
-    res.status(200).json({ success: true, message: 'You registered properly!' });
+    res.redirect('/dashboard');
   }
 });
 

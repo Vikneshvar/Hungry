@@ -35,6 +35,7 @@ router.post('/register', function(req, res){
   var username = req.body.username;
   var password = req.body.password;
   var password2 = req.body.password2;
+  var device = req.body.device;
 
   // Validation
   req.checkBody('name', 'Name is required').notEmpty();
@@ -43,6 +44,7 @@ router.post('/register', function(req, res){
   req.checkBody('username', 'Username is required').notEmpty();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+  req.checkBody('device', 'Device ID is required').notEmpty();
 
   var errors = req.validationErrors();
 
@@ -55,7 +57,8 @@ router.post('/register', function(req, res){
       name: name,
       email:email,
       username: username,
-      password: password
+      password: password,
+      devices: device
     });
 
     User.createUser(newUser, function(err, user){
@@ -65,7 +68,7 @@ router.post('/register', function(req, res){
 
     req.flash('success_msg', 'You are registered and can now login');
 
-    res.redirect('/users/login');
+    res.redirect('/dashboard');
   }
 });
 
@@ -99,7 +102,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/login',failureFlash: true}),
   function(req, res) {
     res.redirect('/');
   });
@@ -109,7 +112,7 @@ router.get('/logout', function(req, res){
 
   req.flash('success_msg', 'You are logged out');
 
-  res.redirect('/users/login');
+  res.redirect('/login');
 });
 
 module.exports = router;

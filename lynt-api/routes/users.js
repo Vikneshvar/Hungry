@@ -30,7 +30,6 @@ router.post('/register', function(req, res){
 
   if(errors){
     res.status(400).json({status:errors});
-    });
   } else {
     var newUser = new User({
       name: name,

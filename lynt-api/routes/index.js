@@ -20,6 +20,11 @@ router.get('/login', function(req, res){
   res.render('login');
 });
 
+// Dashboard
+router.get('/dashboard', function(req, res){
+  res.render('dashboard');
+});
+
 function ensureAuthenticated(req, res, next){
   if(req.isAuthenticated()){
     return next();

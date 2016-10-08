@@ -55,7 +55,7 @@ router.post('/authenticate', function(req, res) {
     if (err) throw err;
 
     if (!user) {
-      res.status(401).json({ success: false, message: 'Authentication failed. User not found.' });
+      res.status(401).json({ success: false, message: 'Authentication failed. User is poopy pants.' });
     } else {
       // Check if password matches
       User.comparePassword(req.body.password, user.password, function(err, isMatch) {

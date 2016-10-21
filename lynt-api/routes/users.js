@@ -5,6 +5,7 @@ var jwt = require('jsonwebtoken');
 
 var config = require('../config/main');
 var User = require('../models/user');
+var Gps = require('../models/gps');
 
 // Bring in defined Passport Strategy
 require('../config/passport')(passport);
@@ -48,14 +49,14 @@ router.post('/register', function(req, res){
 });
 
 // Authenticate the user and get a JSON Web Token to include in the header of future requests.
-router.post('/authenticate', function(req, res) {User.findOne({username: req.body.username}, function(err, user) {
+router.get('/authenticate', function(req, res) {User.findOne({username: req.headers.username}, function(err, user) {
     if (err) throw err;
 
     if (!user) {
       res.status(401).json({ success: false, message: 'Authentication failed. User not found.' });
     } else {
       // Check if password matches
-      User.comparePassword(req.body.password, user.password, function(err, isMatch) {
+      User.comparePassword(req.headers.password, user.password, function(err, isMatch) {
         if (isMatch && !err) {
           // Create token if the password matched and no error was thrown
           const token = jwt.sign(user, config.secret, {

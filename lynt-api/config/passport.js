@@ -15,9 +15,9 @@ module.exports = function(passport) {
         return done(err, false);
       }
       if (user) {
-        done(null, user);
+        return done(null, user);
       } else {
-        done(null, false);
+        return done(null, false, { message: 'No User with that id' });
       }
     });
   }));

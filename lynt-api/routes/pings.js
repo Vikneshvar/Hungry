@@ -39,14 +39,18 @@ router.post('/ping', requireAuth, function(req, res) {
         res.status(400).send(err);
 
       if(pings!=null){
-        //Get username from jwt, **issue with null use
-        pings.accuracy.push(req.body.accuracy);
-        pings.altitude.push(req.body.altitude);
-        pings.heading.push(req.body.heading);
-        pings.latitude.push(req.body.latitude);
-        pings.longitude.push(req.body.longitude);
-        pings.speed.push(req.body.speed);
-        pings.timestamp.push(req.body.timestamp);
+
+        var ping_data = JSON.parse(req.body.data);
+
+        for(i=0; i<ping_data.length; i++){
+          pings.accuracy.push(ping_data[i]["accuracy"]);
+          pings.altitude.push(ping_data[i]["altitude"]);
+          pings.heading.push(ping_data[i]["heading"]);
+          pings.latitude.push(ping_data[i]["latitude"]);
+          pings.longitude.push(ping_data[i]["longitude"]);
+          pings.speed.push(ping_data[i]["speed"]);
+          pings.timestamp.push(ping_data[i]["timestamp"]);
+        }
 
         console.log('saving user Gps');
 
@@ -64,13 +68,18 @@ router.post('/ping', requireAuth, function(req, res) {
         var newGps = new Gps();
 
         newGps.username = username;
-        newGps.accuracy = req.body.accuracy;
-        newGps.altitude = req.body.altitude;
-        newGps.heading = req.body.heading;
-        newGps.latitude = req.body.latitude;
-        newGps.longitude = req.body.longitude;
-        newGps.speed = req.body.speed;
-        newGps.timestamp = req.body.timestamp;
+
+        var ping_data = JSON.parse(req.body.data);
+
+        for(i=0; i<ping_data.length; i++){
+          newGps.accuracy.push(ping_data[i]["accuracy"]);
+          newGps.altitude.push(ping_data[i]["altitude"]);
+          newGps.heading.push(ping_data[i]["heading"]);
+          newGps.latitude.push(ping_data[i]["latitude"]);
+          newGps.longitude.push(ping_data[i]["longitude"]);
+          newGps.speed.push(ping_data[i]["speed"]);
+          newGps.timestamp.push(ping_data[i]["timestamp"]);
+        }
 
         console.log('saving new user Gps');
 

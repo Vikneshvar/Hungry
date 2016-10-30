@@ -2,13 +2,16 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
+var main = require('../config/main');
 
 var config = require('../config/main');
 var User = require('../models/user');
-var Gps = require('../models/gps');
 
 // Bring in defined Passport Strategy
 require('../config/passport')(passport);
+
+// Set up middleware
+var requireAuth = passport.authenticate('jwt', { session: false });
 
 router.post('/register', function(req, res){
   var name = req.body.name;
@@ -69,6 +72,29 @@ router.get('/authenticate', function(req, res) {User.findOne({username: req.head
         }
       });
     }
+  });
+});
+
+router.get('/profile', requireAuth, function(req, res) {
+
+  //verify JWT user
+  jwt.verify(req.headers.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
+    //get user pings
+    var username = decoded["_doc"]["username"]
+    User.getUserByUsername(username, function(err, profile) {
+      if (err)
+        res.status(400).send(err);
+
+      if(profile==null){
+        res.status(200).json({ message: 'User has no profile data.' });
+      }else {
+        var access_info = {};
+        access_info['username'] = profile.username;
+        access_info['name'] = profile.name;
+        access_info['devices'] = profile.devices;
+        res.status(200).json(access_info);
+      }
+    });
   });
 });
 

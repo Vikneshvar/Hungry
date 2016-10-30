@@ -38,8 +38,7 @@ router.post('/ping', requireAuth, function(req, res) {
         res.status(400).send(err);
 
         if(pings!=null){
-          
-          var ping_data = JSON.parse(req.body.data);
+          var ping_data = req.body.data;
 
           for(i=0; i<ping_data.length; i++){
             pings.accuracy.push(ping_data[i]["accuracy"]);
@@ -68,7 +67,7 @@ router.post('/ping', requireAuth, function(req, res) {
 
           newGps.username = username;
 
-          var ping_data = JSON.parse(req.body.data);
+          var ping_data = req.body.data;
 
           for(i=0; i<ping_data.length; i++){
             newGps.accuracy.push(ping_data[i]["accuracy"]);

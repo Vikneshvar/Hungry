@@ -44,4 +44,4 @@ router.post('/account', requireAuth, function(req, res) {
   });
 });
 
-module.exports = plaid;
+module.exports = router;

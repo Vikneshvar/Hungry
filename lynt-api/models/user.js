@@ -18,6 +18,9 @@ var UserSchema = mongoose.Schema({
   },
   devices: [{
     type: String
+  }],
+  keys: [{
+    type: String
   }]
 });
 

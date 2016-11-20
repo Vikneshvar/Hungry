@@ -1,0 +1,38 @@
+<div ng-controller="DemoCtrl" class="container" style="position:relative;width:900px;">
+  <div id="phone">
+    <div id="screen">
+      <div ui-view="splash"></div>
+      <div ui-view="home"></div>
+    </div>
+  </div>
+  <div style="padding:0;position:absolute;top:20px;left:20px;">
+    <button type="button" ng-click="onLoad()" ui-sref="demo.splash" class="btn btn-default" aria-label="Splash" style="padding:0;"><div class="alert alert-info" role="alert" style="margin:0;width:250px;">Splash</div></button>
+  </div>
+  <div style="padding:0;position:absolute;top:20px;right:20px;">
+    <h1>Splash</h1>
+    <p>Here is some filler text to hold you over.</p>
+  </div>
+  <div style="padding:0;position:absolute;top:100px;left:20px;">
+    <button type="button" ui-sref="demo.home" class="btn btn-default" aria-label="Home" style="padding:0;"><div class="alert alert-info" role="alert" style="margin:0;width:250px;">Home</div></button>
+  </div>
+  <div style="padding:0;position:absolute;top:100px;right:20px;">
+    <h1>Home</h1>
+    <p>Here is some filler text to hold you over.</p>
+  </div>
+  <div style="padding:0;position:absolute;top:180px;left:20px;">
+    <button type="button" class="btn btn-default" aria-label="Accounts" style="padding:0;"><div class="alert alert-info" role="alert" style="margin:0;width:250px;">Bank Account</div></button>
+  </div>
+  <div style="padding:0;position:absolute;top:180px;right:20px;">
+    <h1>Bank Account</h1>
+    <p>Here is some filler text to hold you over.</p>
+  </div>
+  <div style="padding:0;position:absolute;top:260px;left:20px;width:250px;background-color:#f7f7f7;padding:6px;border-radius:10px;box-shadow:10px 10px 10px #444444;">
+    <div style="text-align:center;">
+      <h1>Download Lynt Now!</h1>
+    </div>
+    <div style="position:relative;width:100%;height:35px;">
+      <img src="../img/apple-store-badge.svg" style="position:absolute;left:0;width:auto;height:35px;"/>
+      <img src="../img/google-play-badge.png" style="position:absolute;right:0;width:auto;height:35px;"/>
+    </div>
+  </div>
+</div>

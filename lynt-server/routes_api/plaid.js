@@ -35,6 +35,7 @@ router.post('/add', requireAuth, function(req, res) {
         } else {
           var accessToken = exchangeTokenRes.access_token;
           User.keys.push(accessToken)
+          console.log(User.keys);
           plaidClient.getAuthUser(accessToken, function(err, authRes){
             if (err != null){
               // Handle errors!

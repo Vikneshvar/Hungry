@@ -1,1 +1,3 @@
-lynt-api/node_modules/*
+lynt-server/node_modules/*
+lynt-server/config/plaid.json
+lynt-mobile/*

@@ -40,7 +40,7 @@ api.use(expressValidator({
 
 api.use('/users', users);
 api.use('/pings', pings);
-api.use('/plaid', plaid);
+api.use('/bank', plaid);
 
 api.listen(port, function(){
   console.log('API server listening on port '+port);

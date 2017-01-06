@@ -17,7 +17,7 @@ require('../config/passport')(passport);
 // Set up middleware
 var requireAuth = passport.authenticate('jwt', { session: false });
 
-router.post('/authenticate', requireAuth, function(req, res) {
+router.post('/add', requireAuth, function(req, res) {
 
   //verify JWT user
   jwt.verify(req.headers.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
@@ -34,6 +34,7 @@ router.post('/authenticate', requireAuth, function(req, res) {
           // Handle errors!
         } else {
           var accessToken = exchangeTokenRes.access_token;
+          User.keys.push(accessToken)
           plaidClient.getAuthUser(accessToken, function(err, authRes){
             if (err != null){
               // Handle errors!

@@ -14,18 +14,18 @@ require('../config/passport')(passport);
 var requireAuth = passport.authenticate('jwt', { session: false });
 
 router.post('/register', function(req, res){
-  var name = req.body.name;
+  var first = req.body.first;
+  var last = req.body.last;
   var email = req.body.email;
-  var username = req.body.username;
   var password = req.body.password;
   var password2 = req.body.password2;
   var device = req.body.device;
 
   // Validation
-  req.checkBody('name', 'Name is required').notEmpty();
+  req.checkBody('first', 'First name is required').notEmpty();
+  req.checkBody('last', 'Last name is required').notEmpty();
   req.checkBody('email', 'Email is required').notEmpty();
   req.checkBody('email', 'Email is not valid').isEmail();
-  req.checkBody('username', 'Username is required').notEmpty();
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
   req.checkBody('device', 'Device ID is required').notEmpty();
@@ -35,24 +35,30 @@ router.post('/register', function(req, res){
   if(errors){
     res.status(401).json({success: false, message: errors});
   } else {
-    var newUser = new User({
-      name: name,
-      email:email,
-      username: username,
-      password: password,
-      devices: device
-    });
+    User.getUserByEmail(email, function(err, user){
+      if(err){
+        res.status(401).json({success: false, message: err});
+      }else if(user){
+        res.status(401).json({success: false, message: "Email already in use."});
+      }else{
+        var newUser = new User({
+          name: {first:first, last:last},
+          email:email,
+          password: password,
+          devices: device
+        });
 
-    User.createUser(newUser, function(err, user){
-      if(err) throw err;
-      res.status(200).json({ success: true});
+        User.createUser(newUser, function(err, user){
+          if(err) throw err;
+          res.status(200).json({ success: true});
+        });
+      }
     });
-
   }
 });
 
 // Authenticate the user and get a JSON Web Token to include in the header of future requests.
-router.get('/authenticate', function(req, res) {User.findOne({username: req.headers.username}, function(err, user) {
+router.get('/authenticate', function(req, res) {User.findOne({email: req.headers.email}, function(err, user) {
   if (err) throw err;
 
   if (!user) {
@@ -80,8 +86,8 @@ router.get('/profile', requireAuth, function(req, res) {
   //verify JWT user
   jwt.verify(req.headers.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
     //get user pings
-    var username = decoded["_doc"]["username"]
-    User.getUserByUsername(username, function(err, profile) {
+    var email = decoded["_doc"]["email"]
+    User.getUserByEmail(email, function(err, profile) {
       if (err)
         res.status(400).send(err);
 
@@ -89,8 +95,9 @@ router.get('/profile', requireAuth, function(req, res) {
         res.status(200).json({ message: 'User has no profile data.' });
       }else {
         var access_info = {};
-        access_info['username'] = profile.username;
-        access_info['name'] = profile.name;
+        access_info['first'] = profile.name.first;
+        access_info['last'] = profile.name.last;
+        access_info['email'] = profile.email;
         access_info['devices'] = profile.devices;
         res.status(200).json(access_info);
       }

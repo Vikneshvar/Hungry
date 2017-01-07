@@ -14,13 +14,20 @@ var UserSchema = mongoose.Schema({
     type: String
   },
   name: {
-    type: String
+    first: String,
+    last: String
   },
   devices: [{
     type: String
   }],
-  keys: [{
-    type: String
+  banks: [{
+    type: String,
+    token: String,
+    status: String,
+    nick: String,
+    date_added: Date,
+    last_checked: Date,
+    account_number: String
   }]
 });
 

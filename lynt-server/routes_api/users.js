@@ -113,6 +113,7 @@ router.get('/profile', requireAuth, function(req, res) {
         access_info['last'] = profile.name.last;
         access_info['email'] = profile.email;
         access_info['devices'] = profile.devices;
+        access_info['banks'] = profile.banks; // Temporary
         res.status(200).json(access_info);
       }
     });

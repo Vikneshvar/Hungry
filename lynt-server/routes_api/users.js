@@ -67,6 +67,20 @@ router.get('/authenticate', function(req, res) {User.findOne({email: req.headers
       // Check if password matches
       User.comparePassword(req.headers.password, user.password, function(err, isMatch) {
         if (isMatch && !err) {
+          // Check if device is already listed to user profile
+          var matched = false;
+          for(i = 0; i < user.devices.length; i++){
+            if (user.devices[i] === req.headers.device){
+              matched = true;
+            }
+          }
+
+          // If it's not listed, add it to device list
+          if (!matched){
+            user.devices.push(req.headers.device);
+            user.save();
+          }
+
           // Create token if the password matched and no error was thrown
           const token = jwt.sign(user, config.secret, {
             issuer: user.id,

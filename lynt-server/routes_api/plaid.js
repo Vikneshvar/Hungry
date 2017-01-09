@@ -38,11 +38,8 @@ router.post('/add', requireAuth, function(req, res) {
             if (err != null){
               // Handle errors!
             } else {
-              console.log(public_token);
-              console.log(access_token);
-              console.log(authRes);
+              User.addBank(user, authRes);
               var accounts = authRes.accounts;
-
               // Return account data
               res.json({accounts: accounts});
             }

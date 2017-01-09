@@ -18,13 +18,21 @@ var UserSchema = mongoose.Schema({
     type: String
   }],
   banks: [{
-    type: String,
+    type: {type: String},
     token: String,
     status: String,
     nick: String,
     date_added: Date,
     last_checked: Date,
-    account_number: String
+    accounts:[{
+      numbers: {
+        routing: Number,
+        account: Number,
+        wireRouting: Number
+      },
+      subtype: String,
+      type: {type: String}
+    }],
   }]
 });
 
@@ -39,8 +47,33 @@ module.exports.createUser = function(newUser, callback){
   });
 }
 
-module.exports.addBank = function(user, bank, callback){
-  
+module.exports.addBank = function(user, authRes){
+  var d = Date();
+  var accounts = [];
+  for (i = 0; i < authRes.accounts.length; i++){
+    var temp = {
+      numbers:{
+        routing: authRes.accounts[i].numbers.routing,
+        account: authRes.accounts[i].numbers.account,
+        wireRouting: authRes.accounts[i].numbers.wireRouting
+      },
+      subtype: authRes.accounts[i].subtype,
+      type: authRes.accounts[i].type
+    }
+    accounts.push(temp);
+  }
+  var bank = {
+    type: authRes.accounts[0].institution_type,
+    token: authRes.access_token,
+    status: "Pending",
+    nick: authRes.accounts[0].institution_type,
+    date_added: d,
+    last_checked: d,
+    accounts: accounts
+  }
+  console.log(bank);
+  user.banks.push(bank);
+  user.save();
 }
 
 module.exports.getUserByEmail = function(email, callback){

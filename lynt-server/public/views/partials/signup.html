@@ -1,0 +1,19 @@
+<div class="center" ng-controller="SignupCtrl" >
+  <div id="signup-form">
+    <div style="background-color:#1C1C1C;width:100%;border-radius:10px 10px 0px 0px;">
+      <h1 style="color:white;text-align:center;padding-bottom:5px;">Sign Up!</h1>
+    </div>
+    <fieldset>
+      <form>
+
+          <input class="input_box" type="email" name="email" placeholder="Email" ng-model="user.email" required/>
+
+          <input class="input_box" type="password" name="password" placeholder="Password" ng-model="user.password" required/>
+
+          <input class="input_box" type="password" name="password2" placeholder="Repeat Password" ng-model="user.password2" required/>
+
+          <input style="margin-left:5px;" ng-click="signup()" type="submit" value="Signup"/>
+      </form>
+    </fieldset>
+  </div>
+</div>

@@ -5,12 +5,25 @@
   height:540px;
   padding:20px;
   margin:auto;
+  box-shadow:10px 10px 10px 5px #003F4A;
+}
+#phone_button{
+  width:45px;
+  height:45px;
+  margin:auto;
+  margin-top:10px;
+  background-color: black;
+  border: 2px solid;
+  border-color: #202020;
+  border-radius: 45px;
 }
 
 #screen{
   background-color:white;
   width:270px;
   height:450px;
+  border: 5px solid;
+  border-color: #202020;
   margin:0;
 }
 

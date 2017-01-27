@@ -1,11 +1,31 @@
 angular.module('my_ctrls', [])
 
-.controller('MainCtrl', function($scope){
+.controller('MainCtrl', function($scope, $location){
     $scope.test = 'Hello world!';
 })
 
 .controller('DemoCtrl', function($scope){
 
+})
+
+.controller('MerchCtrl', function($scope){
+
+})
+
+.controller('LoginCtrl', function($scope, $state){
+  $scope.login = function(){
+
+  }
+
+  $scope.to_signup = function(){
+    $state.go('merchant.signup');
+  }
+})
+
+.controller('SignupCtrl', function($scope, $state){
+  $scope.signup = function(){
+
+  }
 })
 
 .controller('LogoCtrl', function($scope){

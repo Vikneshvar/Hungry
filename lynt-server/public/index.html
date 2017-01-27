@@ -11,6 +11,7 @@
     <link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/logoanim.css" rel="stylesheet">
     <link href="css/phone.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <script src="libs/jquery/dist/jquery.min.js"></script>
     <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -24,15 +25,15 @@
   </head>
   <body ng-app="starter" ng-controller="MainCtrl" style="overflow:hidden;">
 
-    <nav class="navbar navbar-default">
+    <nav style="background-color:white;" class="navbar">
       <div class="container-fluid" style="max-width:1000px;">
-        <div class="navbar-header">
-          <p class="navbar-brand" style="font-family: 'Lily Script One', cursive;font-size:3em;">
+        <p class="navbar-brand" style="margin-bottom:0;">
+          <a href="#" style="margin-bottom:0;text-decoration:none;color:#474747;font-family: 'Lily Script One', cursive;font-size:2em;">
             Lynt
-          </p>
-        </div>
+          </a>
+        </p>
         <div class="navbar-right">
-          <button type="button" class="btn btn-default navbar-btn">Merchant Signup</button>
+          <button ui-sref="merchant.login" type="button" class="btn btn-default navbar-btn">Merchant Signup</button>
         </div>
       </div>
     </nav>

@@ -1,12 +1,13 @@
 angular.module('starter', ['ui.router','my_ctrls'])
 
 .config(function($stateProvider, $urlRouterProvider){
-  $urlRouterProvider.otherwise('/splash');
+  $urlRouterProvider.otherwise('/demo/splash');
 
   $stateProvider
   .state('demo', {
     abstract: true,
-    templateUrl:'views/demo.html'
+    url: '/demo',
+    templateUrl: 'views/demo.html'
   })
   .state('demo.splash',{
     url:'/splash',
@@ -16,11 +17,24 @@ angular.module('starter', ['ui.router','my_ctrls'])
       }
     }
   })
-  .state('demo.home',{
-    url:'/home',
+  .state('merchant',{
+    abstract: true,
+    url: '/merchant',
+    templateUrl: 'views/merchant.html'
+  })
+  .state('merchant.login',{
+    url:'/login',
     views:{
-      'home@demo':{
-        templateUrl: 'views/home.html'
+      'login@merchant':{
+        templateUrl: 'views/partials/login.html'
+      }
+    }
+  })
+  .state('merchant.signup',{
+    url:'/signup',
+    views:{
+      'signup@merchant':{
+        templateUrl: 'views/partials/signup.html'
       }
     }
   });

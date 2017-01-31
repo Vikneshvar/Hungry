@@ -21,24 +21,108 @@ html{
   box-shadow:10px 10px 10px #003F4A;
 }
 #login-form{
-  width:250px;
+  width:310px;
   padding-bottom:10px;
   border-radius:10px;
   background-color: #f7f7f7;
 }
 #signup-form{
-  width:250px;
-  padding-bottom: 10px;
+  width:310px;
+  padding-bottom: 15px;
   border-radius:10px;
   background-color: #f7f7f7;
+  box-shadow:10px 10px 10px 5px #003F4A;
+}
+#promo-slides{
+  width:400px;
+  height:100%;
+  padding:0;
+  border-radius:10px;
+  box-shadow:10px 10px 10px 5px #003F4A;
+  position:absolute;
+  top:50%;
+  right:0;
+  transform:translate(0%, -50%);
+  background-image: -webkit-linear-gradient(transparent 0px, transparent 49px, rgba(255, 255, 255, 0.2) 50px, transparent 51px, transparent 99px, rgba(255, 255, 255, 0.2) 100px), -webkit-linear-gradient(330deg, transparent 0, transparent 48px, rgba(255, 255, 255, 0.2) 49px, transparent 50px, transparent 98px, rgba(255, 255, 255, 0.2) 99px, transparent 100px), -webkit-linear-gradient(30deg, transparent 0, transparent 48px, rgba(255, 255, 255, 0.2) 49px, transparent 50px, transparent 98px, rgba(255, 255, 255, 0.2) 99px, transparent 100px), -webkit-linear-gradient(-45deg, rgba(28,28,28,.4) 0%,rgba(28,28,28,1) 100%);
+  background-image: linear-gradient(transparent 0px, transparent 49px, rgba(255, 255, 255, 0.2) 50px, transparent 51px, transparent 99px, rgba(255, 255, 255, 0.2) 100px), linear-gradient(120deg, transparent 0, transparent 48px, rgba(255, 255, 255, 0.2) 49px, transparent 50px, transparent 98px, rgba(255, 255, 255, 0.2) 99px, transparent 100px), linear-gradient(60deg, transparent 0, transparent 48px, rgba(255, 255, 255, 0.2) 49px, transparent 50px, transparent 98px, rgba(255, 255, 255, 0.2) 99px, transparent 100px),linear-gradient(135deg, rgba(28,28,28,.4) 0%,rgba(28,28,28,1) 100%);
+  overflow: hidden;
+  background-size: 100px 100px, 115px 100px, 115px 100px, auto;
+  transition: opacity 1s linear;
+  -moz-transition: opacity 1s linear;
+  -webkit-transition: opacity 1s linear;
+}
+
+.fade{
+  opacity: 0;
+}
+
+i{
+  float: left;
+  width: 10%;
+  height: 100%;
+  opacity: .3;
+}
+
+i:nth-child(1) {
+  background: -webkit-linear-gradient(top, #40405c 0%, #6f71aa 80%, #8a76ab 100%);
+  background: linear-gradient(to bottom, #40405c 0%, #6f71aa 80%, #8a76ab 100%);
+}
+i:nth-child(2) {
+  background: -webkit-linear-gradient(top, #4a4969 0%, #7072ab 50%, #cd82a0 100%);
+  background: linear-gradient(to bottom, #4a4969 0%, #7072ab 50%, #cd82a0 100%);
+}
+i:nth-child(3) {
+  background: -webkit-linear-gradient(top, #757abf 0%, #8583be 60%, #eab0d1 100%);
+  background: linear-gradient(to bottom, #757abf 0%, #8583be 60%, #eab0d1 100%);
+}
+i:nth-child(4) {
+  background: -webkit-linear-gradient(top, #82addb 0%, #ebb2b1 100%);
+  background: linear-gradient(to bottom, #82addb 0%, #ebb2b1 100%);
+}
+i:nth-child(5) {
+  background: -webkit-linear-gradient(top, #94c5f8 1%, #a6e6ff 70%, #b1b5ea 100%);
+  background: linear-gradient(to bottom, #94c5f8 1%, #a6e6ff 70%, #b1b5ea 100%);
+}
+i:nth-child(6) {
+  background: -webkit-linear-gradient(top, #b7eaff 0%, #94dfff 100%);
+  background: linear-gradient(to bottom, #b7eaff 0%, #94dfff 100%);
+}
+i:nth-child(7) {
+  background: -webkit-linear-gradient(top, #9be2fe 0%, #67d1fb 100%);
+  background: linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%);
+}
+i:nth-child(8) {
+  background: -webkit-linear-gradient(top, #90dffe 0%, #38a3d1 100%);
+  background: linear-gradient(to bottom, #90dffe 0%, #38a3d1 100%);
+}
+i:nth-child(9) {
+  background: -webkit-linear-gradient(top, #57c1eb 0%, #246fa8 100%);
+  background: linear-gradient(to bottom, #57c1eb 0%, #246fa8 100%);
+}
+i:nth-child(10) {
+  background: -webkit-linear-gradient(top, #2d91c2 0%, #1e528e 100%);
+  background: linear-gradient(to bottom, #2d91c2 0%, #1e528e 100%);
+}
+i:nth-child(11) {
+  background: -webkit-linear-gradient(top, #2473ab 0%, #1e528e 70%, #5b7983 100%);
+  background: linear-gradient(to bottom, #2473ab 0%, #1e528e 70%, #5b7983 100%);
+}
+
+#slide{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  padding:0;
+  margin:0;
+  z-index: 10;
+  padding:10px;
 }
 .input_box{
   border: 2px solid #1C1C1C;
   padding-left:5px;
-  margin-bottom:5px;
-  margin-right:5px;
+  margin-bottom:15px;
   margin-left:5px;
-  width:240px;
+  width:300px;
 }
 .center {
   position: absolute;

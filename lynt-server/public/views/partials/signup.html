@@ -1,19 +1,73 @@
-<div class="center" ng-controller="SignupCtrl" >
-  <div id="signup-form">
-    <div style="background-color:#1C1C1C;width:100%;border-radius:10px 10px 0px 0px;">
-      <h1 style="color:white;text-align:center;padding-bottom:5px;">Sign Up!</h1>
+<div ng-controller="SignupCtrl" ng-init="cycles()">
+  <div style="position:absolute;top:50%;transform:translate(0%, -50%);height:350px;">
+    <div style="text-align:center;">
+      <img src="/img/square.svg"/>
     </div>
-    <fieldset>
-      <form>
+    <div id="signup-form">
+      <div style="background-color:#1C1C1C;width:100%;border-radius:10px 10px 0px 0px;">
+        <h1 style="color:white;text-align:center;padding-bottom:5px;">Sign up</h1>
+      </div>
+      <fieldset>
+        <form>
 
-          <input class="input_box" type="email" name="email" placeholder="Email" ng-model="user.email" required/>
+            <input class="input_box" type="email" name="email" placeholder="Email" ng-model="user.email" required/>
 
-          <input class="input_box" type="password" name="password" placeholder="Password" ng-model="user.password" required/>
+            <input class="input_box" type="password" name="password" placeholder="Password" ng-model="user.password" required/>
 
-          <input class="input_box" type="password" name="password2" placeholder="Repeat Password" ng-model="user.password2" required/>
+            <input class="input_box" type="password" name="password2" placeholder="Repeat Password" ng-model="user.password2" required/>
 
-          <input style="margin-left:5px;" ng-click="signup()" type="submit" value="Signup"/>
-      </form>
-    </fieldset>
+            <div style="position:relative;height:30px;">
+              <input style="background-color:#1C1C1C;color:white;border:none;text-align:center;width:75%;
+              border-radius:5px;font-size:1.5em;padding:0;box-shadow:5px 5px 5px #9F9F9F;" class="center" ng-click="signup()" type="submit" value="Get Started!"/>
+            </div>
+
+        </form>
+      </fieldset>
+    </div>
+    <div style="position:relative;height:50px;text-align:center;background-color:white;border-radius:10px;padding:10px;margin-top:20px;">
+      <p style="margin-left:5px;">Already have an account?
+        <span>
+          <input style="background-color:#1C1C1C;color:white;border:none;text-align:center;border-radius:5px;
+      font-size:1.5em;padding-left:5px;padding-right:5px;box-shadow:5px 5px 5px #9F9F9F;margin-left:5px;" ng-click="to_login()" type="submit" value="Login"/></span>
+      <p>
+    </div>
+  </div>
+
+  <div id="promo-slides" class="fade">
+    <div id="slide">
+    </div>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+    <i></i>
+  </div>
+</div>
+<div style="display:none;">
+  <div id="state0" style="font-family: 'Helvetica Neue',Helvetica;height:100%;color:white;text-align:center;padding:0;margin:0;">
+    <h1 style="font-size:2em;margin-bottom:20px;">Stop Paying For Visibility</h1>
+    <p style="font-size:1.25em;line-height:1.5;">Lynt doesn't charge you until a purchase is verified!</p>
+  </div>
+  <div id="state1" style="font-family: 'Helvetica Neue',Helvetica;height:100%;color:white;text-align:center;padding:0;margin:0;">
+    <h1 style="font-size:2em;margin-bottom:20px;">Reach Out</h1>
+    <p style="font-size:1.25em;line-height:1.5;">Lynt taps into market segments outside your brand's focus!</p>
+  </div>
+  <div id="state2" style="font-family: 'Helvetica Neue',Helvetica;height:100%;color:white;text-align:center;padding:0;margin:0;">
+    <h1 style="font-size:2em;margin-bottom:20px;">Holy Grail of Economics</h1>
+    <p style="font-size:1.25em;line-height:1.5em;">Offers are created on an individual customer level to optimize price discrimination!</p>
+  </div>
+  <div id="state3" style="font-family: 'Helvetica Neue',Helvetica;height:100%;color:white;text-align:center;padding:0;margin:0;">
+    <h1 style="font-size:2em;margin-bottom:20px;">Hyper Competitve Advantage</h1>
+    <p style="font-size:1.25em;line-height:1.5em;">Lynt targets customers from your competition and directs them to YOU!</p>
+  </div>
+  <div id="state4" style="font-family: 'Helvetica Neue',Helvetica;height:100%;color:white;text-align:center;padding:0;margin:0;">
+    <h1 style="font-size:2em;margin-bottom:20px;">Happy Customers, Happy You</h1>
+    <p style="font-size:1.25em;line-height:1.5em;">Frictionless transactions mean offers are discrete and maintains brand integrity</p>
   </div>
 </div>

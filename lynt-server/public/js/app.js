@@ -13,7 +13,15 @@ angular.module('starter', ['ui.router','my_ctrls'])
     url:'/splash',
     views:{
       'splash@demo':{
-        templateUrl: 'views/splash.html'
+        templateUrl: 'views/partials/splash.html'
+      }
+    }
+  })
+  .state('demo.test',{
+    url:'/test',
+    views:{
+      'test@demo':{
+        templateUrl: 'views/partials/test.html'
       }
     }
   })
@@ -31,7 +39,7 @@ angular.module('starter', ['ui.router','my_ctrls'])
     }
   })
   .state('merchant.signup',{
-    url:'/signup',
+    url:'/signup/:id',
     views:{
       'signup@merchant':{
         templateUrl: 'views/partials/signup.html'

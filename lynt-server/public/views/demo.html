@@ -1,9 +1,9 @@
 <div ng-controller="DemoCtrl" class="container" style="position:relative;width:900px;">
   <div id="phone">
     <div id="screen">
-      <div ui-view="splash"></div>
+      <div ui-view={{view}}></div>
     </div>
-    <div id="phone_button"></div>
+    <div ng-click="test()" id="phone_button"></div>
   </div>
   <div id="appdown">
     <div style="text-align:center;">

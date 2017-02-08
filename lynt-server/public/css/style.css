@@ -38,11 +38,10 @@ html{
   height:100%;
   padding:0;
   border-radius:10px;
-  box-shadow:10px 10px 10px 5px #003F4A;
   position:absolute;
   top:50%;
-  right:0;
-  transform:translate(0%, -50%);
+  right: 0;
+  transform:translate(0, -50%);
   background-image: -webkit-linear-gradient(transparent 0px, transparent 49px, rgba(255, 255, 255, 0.2) 50px, transparent 51px, transparent 99px, rgba(255, 255, 255, 0.2) 100px), -webkit-linear-gradient(330deg, transparent 0, transparent 48px, rgba(255, 255, 255, 0.2) 49px, transparent 50px, transparent 98px, rgba(255, 255, 255, 0.2) 99px, transparent 100px), -webkit-linear-gradient(30deg, transparent 0, transparent 48px, rgba(255, 255, 255, 0.2) 49px, transparent 50px, transparent 98px, rgba(255, 255, 255, 0.2) 99px, transparent 100px), -webkit-linear-gradient(-45deg, rgba(28,28,28,.4) 0%,rgba(28,28,28,1) 100%);
   background-image: linear-gradient(transparent 0px, transparent 49px, rgba(255, 255, 255, 0.2) 50px, transparent 51px, transparent 99px, rgba(255, 255, 255, 0.2) 100px), linear-gradient(120deg, transparent 0, transparent 48px, rgba(255, 255, 255, 0.2) 49px, transparent 50px, transparent 98px, rgba(255, 255, 255, 0.2) 99px, transparent 100px), linear-gradient(60deg, transparent 0, transparent 48px, rgba(255, 255, 255, 0.2) 49px, transparent 50px, transparent 98px, rgba(255, 255, 255, 0.2) 99px, transparent 100px),linear-gradient(135deg, rgba(28,28,28,.4) 0%,rgba(28,28,28,1) 100%);
   overflow: hidden;
@@ -50,6 +49,19 @@ html{
   transition: opacity 1s linear;
   -moz-transition: opacity 1s linear;
   -webkit-transition: opacity 1s linear;
+}
+
+.lynt-btn{
+  background-color:#1C1C1C;
+  color:white;
+  border:none;
+  text-align:center;
+  border-radius:5px;
+  font-size:1.5em;
+  padding-left:5px;
+  padding-right:5px;
+  border:1px solid #777777;
+  margin-left:5px;
 }
 
 .fade{
@@ -118,7 +130,7 @@ i:nth-child(11) {
   padding:10px;
 }
 .input_box{
-  border: 2px solid #1C1C1C;
+  border: 1px solid #1C1C1C;
   padding-left:5px;
   margin-bottom:15px;
   margin-left:5px;

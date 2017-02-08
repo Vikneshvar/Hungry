@@ -14,7 +14,7 @@
 
           <input class="input_box" type="password" name="password" placeholder="Password" ng-model="user.password" required onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "> <!-- JS because of IE support; better: placeholder="Password" -->
 
-          <input style="margin-left:5px;" ng-click="login()" type="submit" value="Login">
+          <input style="margin-left:5px;margin-bottom:5px;" class="lynt-btn" ng-click="login()" type="submit" value="Login">
 
           <p style="padding-left:5px;margin-bottom:0;"><a href="#">Forgot Password?</a></p>
 

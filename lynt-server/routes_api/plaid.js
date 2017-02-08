@@ -50,4 +50,30 @@ router.post('/add', requireAuth, function(req, res) {
   });
 });
 
+router.put('/remove', requireAuth, function(req, res) {
+
+  //verify JWT user
+  jwt.verify(req.headers.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
+    //get user pings
+    var email = decoded["_doc"]["email"]
+    User.getUserByEmail(email, function(err, user) {
+      if (err)
+        res.status(400).send(err);
+
+      var bank_id = req.body.bank;
+
+      for(i = 0; i < user.banks.length; i++){
+        if (user.banks[i]._id == bank_id){
+          user.banks.splice(i, 1);
+          user.save();
+          res.json({message: "removed " + bank_id});
+          break;
+        }
+      }
+      res.json({message: "No such bank in accounts"});
+
+    });
+  });
+});
+
 module.exports = router;

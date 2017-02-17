@@ -1,7 +1,7 @@
 angular.module('starter', ['ui.router','my_ctrls'])
 
 .config(function($stateProvider, $urlRouterProvider){
-  $urlRouterProvider.otherwise('/demo/home');
+  $urlRouterProvider.otherwise('/demo/splash');
 
   $stateProvider
   .state('demo', {

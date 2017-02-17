@@ -1,0 +1,46 @@
+.slides-down-short{
+  transition: height .3s;
+  -webkit-transition: height .3s;
+  transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+}
+
+.slides-down-long{
+  transition: height .6s;
+  -webkit-transition: height .6s;
+  transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+}
+
+#home-bar{
+  width:100%;
+  position:relative;
+  height:40px;
+  background-color: #1c1c1c;
+  padding: 0;
+}
+
+#lynt-wallet{
+  width:100%;
+  position:relative;
+  height:85px;
+  background-color: #1c1c1c;
+}
+
+#new-lynt{
+  width:100%;
+  position: relative;
+  /*height: 50px;*/
+  height:0px;
+  background-color: #393939;
+  overflow:hidden;
+}
+
+#details{
+  width:100%;
+  position: relative;
+  /*height:275px;*/
+  height:0px;
+  background-color: #393939;
+  overflow:hidden;
+}

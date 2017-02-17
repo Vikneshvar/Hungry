@@ -1,7 +1,7 @@
 angular.module('starter', ['ui.router','my_ctrls'])
 
 .config(function($stateProvider, $urlRouterProvider){
-  $urlRouterProvider.otherwise('/demo/splash');
+  $urlRouterProvider.otherwise('/demo/home');
 
   $stateProvider
   .state('demo', {
@@ -17,11 +17,11 @@ angular.module('starter', ['ui.router','my_ctrls'])
       }
     }
   })
-  .state('demo.test',{
-    url:'/test',
+  .state('demo.home',{
+    url:'/home',
     views:{
-      'test@demo':{
-        templateUrl: 'views/partials/test.html'
+      'home@demo':{
+        templateUrl: 'views/partials/home.html'
       }
     }
   })

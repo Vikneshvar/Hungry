@@ -10,7 +10,7 @@ angular.module('my_ctrls', [])
 
 .controller('DemoCtrl', function($scope, $state){
   $scope.view = "splash";
-  var pages = ["splash", "test"];
+  var pages = ["splash", "home"];
   var curr = 0;
 
   $scope.test = function(){
@@ -76,13 +76,33 @@ angular.module('my_ctrls', [])
   }
 })
 
+.controller('HomeCtrl', function($scope){
+  $scope.animateHome = function(){
+    setTimeout(function(){
+      document.getElementById("new-lynt").style.height = '50px';
+      setTimeout(function(){
+        document.getElementById("details").style.height = '275px';
+      }, 1500);
+    }, 1000);
+  }
+})
+
 .controller('LogoCtrl', function($scope){
   $scope.animateLogo = function(){
     setTimeout(function(){
-      var elements = document.getElementsByClassName("transitions");
-      for(var i = 0, length = elements.length; i < length; i++){
-        elements[i].style.borderRadius= '50%';
+    document.getElementById("pocket-box").style.width = '300px';
+    document.getElementById("left-wallet").style.left = '0%';
+    document.getElementById("left-wallet").style.transform = 'rotateY(360deg)';
+    setTimeout(function(){
+      document.getElementById("lynt").style.opacity = "1";
+      var lints = document.getElementsByClassName("rises");
+      for(var i=0, length = lints.length; i<length; i++){
+        lints[i].style.visibility = 'visible';
       }
-    }, 100);
+      document.getElementById("lint-1").style.top = '0%';
+      document.getElementById("lint-2").style.top = '30%';
+      document.getElementById("lint-3").style.top = '65%';
+    }, 700);
+  }, 500);
   }
 });

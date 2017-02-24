@@ -76,6 +76,17 @@ module.exports.addBank = function(user, authRes){
   user.save();
 }
 
+module.exports.removeBank = function(user, bank_id){
+  for(i = 0; i < user.banks.length; i++){
+    if (user.banks[i]._id.toString() === bank_id){
+      user.banks.splice(i, 1);
+      user.save();
+      return {message: "removed " + bank_id};
+    }
+  }
+  return {message: "No such bank in accounts"};
+}
+
 module.exports.getUserByEmail = function(email, callback){
   var query = {email: email};
   User.findOne(query, callback);

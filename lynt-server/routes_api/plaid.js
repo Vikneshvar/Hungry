@@ -62,16 +62,7 @@ router.put('/remove', requireAuth, function(req, res) {
 
       var bank_id = req.body.bank;
 
-      for(i = 0; i < user.banks.length; i++){
-        if (user.banks[i]._id.toString() == bank_id){
-          user.banks.splice(i, 1);
-          user.save();
-          res.json({message: "removed " + bank_id});
-          break;
-        }
-      }
-      res.json({message: "No such bank in accounts"});
-
+      res.json(User.removeBank(user, bank_id));
     });
   });
 });

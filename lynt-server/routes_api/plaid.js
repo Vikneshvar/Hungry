@@ -10,7 +10,7 @@ var User = require('../models/user');
 var plaidClient = new plaid.Client(lynt.PLAID_CLIENT_ID,
                                    lynt.PLAID_SECRET,
                                    lynt.PLAID_PUBLIC_KEY,
-                                   plaid.environments.tartan);
+                                   plaid.environments.sandbox);
 
 // Bring in defined Passport Strategy
 require('../config/passport')(passport);

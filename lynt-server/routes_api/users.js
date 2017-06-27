@@ -95,26 +95,55 @@ router.get('/authenticate', function(req, res) {User.findOne({email: req.headers
   });
 });
 
-router.get('/profile', requireAuth, function(req, res) {
+router.get('/getuser', requireAuth, function(req, res) {
 
   //verify JWT user
   jwt.verify(req.headers.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
     //get user pings
     var email = decoded["_doc"]["email"]
-    User.getUserByEmail(email, function(err, profile) {
+    User.getUserByEmail(email, function(err, user) {
       if (err)
         res.status(400).send(err);
 
-      if(profile==null){
+      if(user==null){
         res.status(200).json({ message: 'User has no profile data.' });
       }else {
         var access_info = {};
-        access_info['first'] = profile.name.first;
-        access_info['last'] = profile.name.last;
-        access_info['email'] = profile.email;
-        access_info['devices'] = profile.devices;
-        access_info['banks'] = profile.banks; // Temporary
+        access_info['_id'] = user._id;
+        access_info['first'] = user.name.first;
+        access_info['last'] = user.name.last;
+        access_info['email'] = user.email;
+        access_info['devices'] = user.devices;
+        access_info['banks'] = user.banks; // Temporary
         res.status(200).json(access_info);
+      }
+    });
+  });
+});
+
+router.post('/updatepreference', requireAuth, function(req, res) {
+
+  //verify JWT user
+  jwt.verify(req.headers.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
+    //get user pings
+    var email = decoded["_doc"]["email"];
+    User.getUserByEmail(email, function(err, user) {
+      if (err) {
+        res.status(400).send(err);
+      }else {
+        console.log("PP",req.body.preference)
+        var preferenceList=req.body.preference;
+        User.updatePreference(user,preferenceList, function(err, updatedUser){
+          if(err) throw err;  
+            var access_info = {};
+            access_info['first'] = updatedUser.name.first;
+            access_info['last'] = updatedUser.name.last;
+            access_info['email'] = updatedUser.email;
+            access_info['devices'] = updatedUser.devices;
+            access_info['banks'] = updatedUser.banks;
+            access_info['preference'] = updatedUser.preference;
+            res.status(200).json(access_info);
+        });
       }
     });
   });

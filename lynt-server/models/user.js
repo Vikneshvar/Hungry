@@ -17,6 +17,9 @@ var UserSchema = mongoose.Schema({
   devices: [{
     type: String
   }],
+  preference:[{
+    type: String
+  }],
   banks: [{
     type: {type: String},
     token: String,
@@ -45,6 +48,15 @@ module.exports.createUser = function(newUser, callback){
           newUser.save(callback);
       });
   });
+}
+
+module.exports.updateUser = function(user, callback){
+
+}
+
+module.exports.updatePreference = function(user,preferenceList, callback){
+  user.preference=preferenceList;
+  user.save(callback);
 }
 
 module.exports.addBank = function(user, authRes){

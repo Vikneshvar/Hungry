@@ -8,6 +8,15 @@ var lynt = require('../config/plaid.json')
 var User = require('../models/user');
 var PlaidItem = require('../models/plaidItem');
 
+
+var PLAID_CLIENT_ID  = lynt.PLAID_CLIENT_ID;
+var PLAID_SECRET     = lynt.PLAID_SECRET;
+var PLAID_PUBLIC_KEY = lynt.PLAID_PUBLIC_KEY;
+
+//console.log('PLAID_CLIENT_ID: ' + PLAID_CLIENT_ID);
+//console.log('PLAID_SECRET: ' + PLAID_SECRET);
+//console.log('PLAID_PUBLIC_KEY: ' + PLAID_PUBLIC_KEY);
+
 // We store the access_token in memory - in production, store it in a secure
 // persistent data store
 var ACCESS_TOKEN = null;
@@ -15,10 +24,8 @@ var PUBLIC_TOKEN = null;
 var ITEM_ID = null;
 
 // Initialize the Plaid client
-var plaidClient = new plaid.Client(lynt.PLAID_CLIENT_ID,
- lynt.PLAID_SECRET,
- lynt.PLAID_PUBLIC_KEY,
- plaid.environments.sandbox);
+var plaidClient = new plaid.Client(PLAID_CLIENT_ID,PLAID_SECRET,
+  PLAID_PUBLIC_KEY,plaid.environments['sandbox']);
 
 // Bring in defined Passport Strategy
 require('../config/passport')(passport);
@@ -28,28 +35,27 @@ var requireAuth = passport.authenticate('jwt', { session: false });
 
 // Got the public token here on successfull sign in from mobile app.
 // Exchange the public token for access token & item_id for a particular item of a user
-router.post('/get_access_token',requireAuth, function(request, response, next) {
+router.post('/get_access_token', function(request, response, next) {
+  console.log('Inside 111111111')
   //verify JWT user
-  console.log("Hiiiiii1");
-  jwt.verify(request.headers.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
+  jwt.verify(request.body.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
     //get user pings
     var email = decoded["_doc"]["email"]
+    console.log('email: ',email)
     User.getUserByEmail(email, function(err, user) {
       if (err)
         res.status(400).send(err);
-
       if(user==null){
         res.status(200).json({ message: 'User has no profile data.' });
       } else {
-        console.log("Hiiiiii22222222");
         USER_ID = user._id;
         console.log('User Id: ' + USER_ID);
         PUBLIC_TOKEN = request.body.public_token;
-
-        client.exchangePublicToken(PUBLIC_TOKEN, function(error, tokenResponse) {
+        console.log("PUBLIC_TOKEN: ", PUBLIC_TOKEN);
+        plaidClient.exchangePublicToken(PUBLIC_TOKEN, function(error, tokenResponse) {
           if (error != null) {
             var msg = 'Could not exchange public_token!';
-            console.log(msg + '\n' + error);
+            console.log(error);
             return response.json({
               error: msg
             });
@@ -65,9 +71,16 @@ router.post('/get_access_token',requireAuth, function(request, response, next) {
             userId: USER_ID
           });
 
-          User.createPlaidItem(newPlaidItem, function(err, user){
-            if(err) throw err;
-            res.status(200).json({ success: true});
+          PlaidItem.createPlaidItem(newPlaidItem, function(err, user){
+            if(err) {
+              throw err;
+              console.log(err);
+            } 
+            console.log("Success");
+            response.status(200).json({ success: true});
+            if(response.status==200){
+            console.log("Success");
+            }
           });
         });
       }

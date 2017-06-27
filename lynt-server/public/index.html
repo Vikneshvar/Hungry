@@ -1,45 +1,156 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <base href="/">
+<head>
+  <meta charset="UTF-8">
+  <base href="/">
 
-    <title>Lynt</title>
+  <title>Lynt</title>
 
-    <link src="fonts/LilyScriptOne-Regular.ttf" rel="stylesheet">
+  <link src="fonts/LilyScriptOne-Regular.ttf" rel="stylesheet">
 
-    <link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/logoanim.css" rel="stylesheet">
-    <link href="css/phone.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/home.css" rel="stylesheet">
+  <link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="css/logoanim.css" rel="stylesheet">
+  <link href="css/phone.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/home.css" rel="stylesheet">
+  <script src="libs/jquery/dist/jquery.min.js"></script>
+  <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script src="libs/jquery/dist/jquery.min.js"></script>
-    <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="libs/angular/angular.min.js"></script>
+  <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-    <script src="libs/angular/angular.min.js"></script>
-    <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+  
+  
 
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
+</head>
+<body ng-app="starter" ng-controller="MainCtrl" style="overflow:hidden;">
 
-  </head>
-  <body ng-app="starter" ng-controller="MainCtrl" style="overflow:hidden;">
+  <nav style="background-color:white;" class="navbar">
+    <div class="container-fluid" style="max-width:1000px;">
+      <p class="navbar-brand" style="margin-bottom:0;">
+        <a ui-sref="demo.splash" style="margin-bottom:0;text-decoration:none;color:#474747;font-family: 'Lily Script One', cursive;font-size:2em;">
+          Lynt
+        </a>
+      </p>
+      <div class="navbar-right">
+        <button ng-click="go_to('merchant.signup')" type="button" class="btn btn-default navbar-btn">Merchant Signup</button>
+        <button id="link-btn">Link Account</button>
 
-    <nav style="background-color:white;" class="navbar">
-      <div class="container-fluid" style="max-width:1000px;">
-        <p class="navbar-brand" style="margin-bottom:0;">
-          <a ui-sref="demo.splash" style="margin-bottom:0;text-decoration:none;color:#474747;font-family: 'Lily Script One', cursive;font-size:2em;">
-            Lynt
-          </a>
-        </p>
-        <div class="navbar-right">
-          <button ng-click="go_to('merchant.signup')" type="button" class="btn btn-default navbar-btn">Merchant Signup</button>
-        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+  <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+  <script>
+  (function($) {
+    var handler = Plaid.create({
+      apiVersion: 'v2',
+      clientName: 'Plaid Walkthrough Demo',
+      env: 'sandbox',
+      product: ['transactions'],
+      key: '0bb085a4368d5d6ed1234248f06be6',
+      onSuccess: function(public_token,authorization) {
+        console.log('On Success')
+        $.post('http://localhost:3000/plaid/get_access_token', {
+          public_token: public_token,
+          authorization: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsic3RyaWN0TW9kZSI6dHJ1ZSwiZ2V0dGVycyI6e30sIl9pZCI6IjU5NTJjZjU5NWJkNWIxMmI0MDMyNjJiYiIsIndhc1BvcHVsYXRlZCI6ZmFsc2UsImFjdGl2ZVBhdGhzIjp7InBhdGhzIjp7ImRldmljZXMiOiJpbml0IiwicHJlZmVyZW5jZSI6ImluaXQiLCJiYW5rcyI6ImluaXQiLCJfX3YiOiJpbml0IiwibmFtZS5sYXN0IjoiaW5pdCIsIm5hbWUuZmlyc3QiOiJpbml0IiwicGFzc3dvcmQiOiJpbml0IiwiZW1haWwiOiJpbml0IiwiX2lkIjoiaW5pdCJ9LCJzdGF0ZXMiOnsiaWdub3JlIjp7fSwiZGVmYXVsdCI6e30sImluaXQiOnsiX192Ijp0cnVlLCJuYW1lLmxhc3QiOnRydWUsIm5hbWUuZmlyc3QiOnRydWUsImRldmljZXMiOnRydWUsInByZWZlcmVuY2UiOnRydWUsImJhbmtzIjp0cnVlLCJwYXNzd29yZCI6dHJ1ZSwiZW1haWwiOnRydWUsIl9pZCI6dHJ1ZX0sIm1vZGlmeSI6e30sInJlcXVpcmUiOnt9fSwic3RhdGVOYW1lcyI6WyJyZXF1aXJlIiwibW9kaWZ5IiwiaW5pdCIsImRlZmF1bHQiLCJpZ25vcmUiXX0sImVtaXR0ZXIiOnsiZG9tYWluIjpudWxsLCJfZXZlbnRzIjp7InNhdmUiOltudWxsLG51bGxdLCJpc05ldyI6W251bGwsbnVsbF19LCJfZXZlbnRzQ291bnQiOjIsIl9tYXhMaXN0ZW5lcnMiOjB9fSwiaXNOZXciOmZhbHNlLCJfZG9jIjp7Im5hbWUiOnsibGFzdCI6InNvYXAiLCJmaXJzdCI6InNvYXAifSwiZGV2aWNlcyI6WyJzb2FwIl0sInByZWZlcmVuY2UiOltdLCJiYW5rcyI6W10sIl9fdiI6MCwicGFzc3dvcmQiOiIkMmEkMTAkWlBOSWhWaVNMeVZTNlQ2cXpVcEVFTy9rVnowL3Jpd0Z1WC80UmltRktLQWxTSHovTmlTTU8iLCJlbWFpbCI6InBAcC5jb20iLCJfaWQiOiI1OTUyY2Y1OTViZDViMTJiNDAzMjYyYmIifSwiX3ByZXMiOnsiJF9fb3JpZ2luYWxfc2F2ZSI6W251bGwsbnVsbF0sIiRfX29yaWdpbmFsX3ZhbGlkYXRlIjpbbnVsbF0sIiRfX29yaWdpbmFsX3JlbW92ZSI6W251bGxdfSwiX3Bvc3RzIjp7IiRfX29yaWdpbmFsX3NhdmUiOltdLCIkX19vcmlnaW5hbF92YWxpZGF0ZSI6W10sIiRfX29yaWdpbmFsX3JlbW92ZSI6W119LCJpYXQiOjE0OTg1OTkyNzEsImV4cCI6MTQ5ODYwOTM1MSwiaXNzIjoiNTk1MmNmNTk1YmQ1YjEyYjQwMzI2MmJiIn0.KwLa_nODqBN7MCE5a35pCEvo_jHjghwDP70hnkax7j0'
+        }, function() {
+          $('#container').fadeOut('fast', function() {
+            $('#intro').hide();
+            $('#app, #steps').fadeIn('slow');
+          });
+        });
+                console.log(public_token)
+      },
+    });
+
+    $('#link-btn').on('click', function(e) {
+      handler.open();
+    });
+
+    $('#get-accounts-btn').on('click', function(e) {
+      $.get('http://localhost:3000/plaid/get_access_token', function(data) {
+        $('#get-accounts-data').slideUp(function() {
+          var html = '';
+          data.accounts.forEach(function(account, idx) {
+            html += '<div class="inner">';
+            html += '<strong>' + account.name +
+              ' $' + (account.balances.available != null ? account.balances.available : account.balances.current) + '</strong><br>';
+            html += account.subtype + ' ' + account.mask;
+            html += '</div>';
+          });
+
+          $(this).html(html).slideDown();
+        });
+      });
+    });
+
+    $('#get-item-btn').on('click', function(e) {
+      $.post('/item', function(data) {
+        $('#get-item-data').slideUp(function() {
+          if (data.error)
+            $(this).html('<p>' + data.error + '</p>').slideDown();
+          else {
+            var html = '<div class="inner">';
+            html += '<p>Here\'s some basic information about your Item:</p>';
+            html += '<p>Institution name:' + data.institution.name + '</p>';
+            html += '<p>Billed products: ' + data.item.billed_products.join(', ') + '</p>';
+            html += '<p>Available products: ' + data.item.available_products.join(', ') + '</p>';
+            html += '</div>';
+
+            $(this).html(html).slideDown();
+          }
+        });
+      });
+    });
+
+    $('#get-transactions-btn').on('click', function(e) {
+      $.post('/transactions', function(data) {
+        if (data.error != null) {
+          // Format the error
+          var errorHtml = '<div class="inner"><p>' +
+           '<strong>' + data.error.error_code + ':</strong> ' +
+           data.error.error_message + '</p></div>';
+
+          if (data.error.error_code === 'PRODUCT_NOT_READY') {
+            // Add additional context for `PRODUCT_NOT_READY` errors
+            errorHtml += '<div class="inner"><p>The PRODUCT_NOT_READY ' +
+             'error is returned when a request to retrieve Transaction data ' +
+             'is made before Plaid finishes the <a href="https://plaid.com/' +
+             'docs/quickstart/#transaction-data-with-webhooks">initial ' +
+             'transaction pull.</a></p></div>';
+          }
+          // Render the error
+          $('#get-transactions-data').slideUp(function() {
+            $(this).slideUp(function() {
+              $(this).html(errorHtml).slideDown();
+            });
+          });
+        } else {
+          $('#get-transactions-data').slideUp(function() {
+            var html = '';
+            data.transactions.forEach(function(txn, idx) {
+              html += '<div class="inner">';
+              html += '<strong>' + txn.name + '</strong><br>';
+              html += '$' + txn.amount;
+              html += '<br><em>' + txn.date + '</em>';
+              html += '</div>';
+            });
+
+            $(this).slideUp(function() {
+              $(this).html(html).slideDown();
+            });
+          });
+        }
+      });
+    });
+  })(jQuery);
+</script>
+
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <div ui-view></div>
+  <div ui-view></div>
 
-  </body>
+</body>
 </html>

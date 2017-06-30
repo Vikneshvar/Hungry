@@ -7,6 +7,8 @@ var main = require('../config/main');
 var lynt = require('../config/plaid.json')
 var User = require('../models/user');
 var PlaidItem = require('../models/plaidItem');
+var PlaidAccount = require('../models/account');
+
 
 
 var PLAID_CLIENT_ID  = lynt.PLAID_CLIENT_ID;
@@ -35,8 +37,8 @@ var requireAuth = passport.authenticate('jwt', { session: false });
 
 // Got the public token here on successfull sign in from mobile app.
 // Exchange the public token for access token & item_id for a particular item of a user
-router.post('/get_access_token', function(request, response, next) {
-  console.log('Inside 111111111')
+// Save the item id and access token in the app
+router.post('/createPlaidItem', function(request, response, next) {
   //verify JWT user
   jwt.verify(request.body.authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
     //get user pings
@@ -49,6 +51,7 @@ router.post('/get_access_token', function(request, response, next) {
         res.status(200).json({ message: 'User has no profile data.' });
       } else {
         USER_ID = user._id;
+        EMAIL_ID = user.email;
         console.log('User Id: ' + USER_ID);
         PUBLIC_TOKEN = request.body.public_token;
         console.log("PUBLIC_TOKEN: ", PUBLIC_TOKEN);
@@ -67,25 +70,140 @@ router.post('/get_access_token', function(request, response, next) {
 
           var newPlaidItem = new PlaidItem({
             plaidItemId: ITEM_ID,
+            emailId:EMAIL_ID,
             accessToken:ACCESS_TOKEN,
             userId: USER_ID
           });
 
-          PlaidItem.createPlaidItem(newPlaidItem, function(err, user){
+          PlaidItem.createPlaidItem(newPlaidItem, function(err, createdItem){
             if(err) {
               throw err;
               console.log(err);
             } 
-            console.log("Success");
-            response.status(200).json({ success: true});
-            if(response.status==200){
-            console.log("Success");
-            }
+            console.log(createdItem);
+            response.status(200).json({ success: true, item:createdItem});
           });
         });
       }
     });
+  });
 });
+
+// Retrieve Auth information for the Item, which includes high-level
+// account information and account numbers for depository auth.
+// Input - send authorization jwt and item id(bank) we saved in app from createPlaidItem request
+router.get('/updateItemwithAccount', function(request, response, next) {
+  var data=JSON.stringify(request.headers)
+  var obj = JSON.parse(data);
+  console.log('obj: ',obj);
+  var authorization = obj.authorization;
+  var itemId = obj.itemid;
+  //verify JWT user
+  jwt.verify(authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
+    //get user pings
+    var email = decoded["_doc"]["email"];
+    console.log('email: ',email);
+    console.log('itemId: ',itemId);
+    PlaidItem.getItem(itemId,email,function(err, item) {
+      if (err)
+        res.status(400).send(err);
+      if(item==null){
+        response.status(200).json({ message: 'User has no profile data.' });
+      } else {
+        ACCESS_TOKEN = item.accessToken;
+        console.log("ACCESS_TOKEN: ", ACCESS_TOKEN);
+        plaidClient.getAuth(ACCESS_TOKEN, function(error, numbersData) {
+          if(error != null) {
+            var msg = 'Unable to pull accounts from Plaid API.';
+            console.log(msg + '\n' + error);
+            return response.json({error: msg});
+          }
+            console.log(numbersData.accounts);
+            var d = Date();
+            var conditions = { plaidItemId: itemId, emailId: item.emailId}
+            PlaidItem.updatePlaidAccount(conditions,numbersData.accounts, function(err, createdAccount){
+              if(err) {
+                throw err;
+                console.log(err);
+              }
+              if(createdAccount!=null){  
+                console.log("Success - Account Created in DB");
+                console.log(createdAccount);
+              }
+              return response.json({status:200,data:createdAccount});
+            });
+        });
+      }
+    });
+  });
+});
+
+//Get transactions for each account
+router.get('/updateItemwithAccount', function(request, response, next) {
+  var data=JSON.stringify(request.headers)
+  var obj = JSON.parse(data);
+  console.log('obj: ',obj);
+  var authorization = obj.authorization;
+  var itemId = obj.itemid;
+  //verify JWT user
+  jwt.verify(authorization.replace('JWT ', ''), main['secret'], function(err, decoded) {
+    //get user pings
+    var email = decoded["_doc"]["email"];
+    console.log('email: ',email);
+    console.log('itemId: ',itemId);
+    PlaidItem.getItem(itemId,email,function(err, item) {
+      if (err)
+        res.status(400).send(err);
+      if(item==null){
+        response.status(200).json({ message: 'User has no profile data.' });
+      } else {
+        ACCESS_TOKEN = item.accessToken;
+        console.log("ACCESS_TOKEN: ", ACCESS_TOKEN);
+        plaidClient.getAuth(ACCESS_TOKEN, function(error, data) {
+          if(error != null) {
+            var msg = 'Unable to pull accounts from Plaid API.';
+            console.log(msg + '\n' + error);
+            return response.json({error: msg});
+          }
+            console.log(data);
+            var d = Date();
+            var conditions = { plaidItemId: itemId, emailId: item.emailId}
+            PlaidItem.updatePlaidAccount(conditions,data, function(err, createdAccount){
+              if(err) {
+                throw err;
+                console.log(err);
+              }
+              if(createdAccount!=null){  
+                console.log("Success - Account Created in DB");
+                console.log(createdAccount);
+              }
+              return response.json({status:200,data:createdAccount});
+            });
+        });
+      }
+    });
+  });
+});
+
+      
+
+router.get('/createAccount', function(request,response, next) {
+  // Retrieve Auth information for the Item, which includes high-level
+  // account information and account numbers for depository auth.
+  client.getAuth(ACCESS_TOKEN, function(error, numbersData) {
+    if(error != null) {
+      var msg = 'Unable to pull accounts from Plaid API.';
+      console.log(msg + '\n' + error);
+      return response.json({error: msg});
+    }
+    response.json({
+      error: false,
+      accounts: numbersData.accounts,
+      numbers: numbersData.numbers,
+    });
+  });
+
+
 });
 
 router.get('/accounts', function(request, response, next) {

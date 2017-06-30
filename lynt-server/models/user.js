@@ -19,23 +19,6 @@ var UserSchema = mongoose.Schema({
   }],
   preference:[{
     type: String
-  }],
-  banks: [{
-    type: {type: String},
-    token: String,
-    status: String,
-    nick: String,
-    date_added: Date,
-    last_checked: Date,
-    accounts:[{
-      numbers: {
-        routing: Number,
-        account: Number,
-        wireRouting: Number
-      },
-      subtype: String,
-      type: {type: String}
-    }],
   }]
 });
 
@@ -104,7 +87,7 @@ module.exports.getUserByEmail = function(email, callback){
   User.findOne(query, callback);
 }
 
-module.exports.getUserById = function(id, callback){
+module.exports.getUserIDByEmail = function(id, callback){
   User.findById(id, callback);
 }
 

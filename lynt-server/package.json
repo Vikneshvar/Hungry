@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Backend services for Lynt",
   "main": "app.js",
-  "author": "Evan Andrews",
+  "author": "Vikneshvar",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.3.0",
